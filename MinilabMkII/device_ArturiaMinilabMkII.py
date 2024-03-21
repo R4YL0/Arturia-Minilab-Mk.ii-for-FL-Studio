@@ -22,7 +22,7 @@ class MidiControllerConfig():
     #Knobs
         if event.status == 185:
         #Mixer
-            #Tracks werden markiert
+            #Mark Tracks
             if mixer.isTrackSelected(constants.x) == 0:
                 for i in range(0,122):
                     if mixer.isTrackSelected(i) != 0:
@@ -65,14 +65,14 @@ class MidiControllerConfig():
                 if event.data2 > 64:
                     mixer.setTrackPan(constants.x, mixer.getTrackPan(constants.x) + 0.01)
             
-        #Chanell Rack
-            #Channel wird markiert
+        #Channel Rack
+            #Mark Channel Rack
             if channels.isChannelSelected(constants.s-1) == 0:
                 for i in range(0,channels.channelCount()):
                     if channels.isChannelSelected(i) != 0:
                         constants.s = i + 1
                         break
-            #Channel wird selected
+            #Select Channel Rack
             if event.data1 == 119:
                 #ui.showWindow(midi.widChannelRack)
                 ui.setFocused(midi.widChannelRack)
@@ -107,7 +107,7 @@ class MidiControllerConfig():
                 if event.data2 > 64:
                     channels.setChannelVolume(constants.s-1, j + 0.01)
         #Patterns
-            #Channel wird markiert
+            #Mark Channel
             
             if patterns.isPatternSelected(constants.p) == 0:
                 for i in range(0,patterns.patternCount()+1):
@@ -129,7 +129,7 @@ class MidiControllerConfig():
                         patterns.findFirstNextEmptyPat(midi.FFNEP_DontPromptName)
                         constants.p = constants.p+1
             
-        #Ui
+        #UI
             if event.data1 == 122:
                 if event.data2 < 64 and event.data2 > 58:
                     ui.setFocused(midi.widBrowser)
@@ -144,7 +144,7 @@ class MidiControllerConfig():
             if event.data1 == 90 and event.data2 > 0:
                 ui.enter()
                     
-        #Metronom und andere buttons
+        #Metronom and other buttons
             if event.data1 == 20 and event.data2 > 0:
                 transport.globalTransport(midi.FPT_Metronome, 110)
             if event.data1 == 21 and event.data2 > 0:
